@@ -4,7 +4,7 @@ import {AboutPage} from '../about/about';
 import {ContactPage} from '../contact/contact';
 
 @Component({
-  templateUrl: 'build/pages/tabs/tabs.html'
+  templateUrl: './tabs.html',
 })
 export class TabsPage {
 

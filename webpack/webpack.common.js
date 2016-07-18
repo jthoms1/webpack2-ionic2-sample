@@ -12,10 +12,12 @@ var ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 module.exports = {
   entry: {
     polyfills: './app/polyfills',
-    app: './app/app',
+    app: './app/app'
   },
 
   resolve: {
+    mainFields: ['main', 'browser'],
+    aliasFields: ['browser'],
     extensions: ['', '.js', '.ts', '.json', '.scss'],
     root: __dirname,
     modulesDirectories: ['node_modules']
@@ -25,23 +27,24 @@ module.exports = {
     loaders: [
       {
         test: /\.ts$/,
-        loaders: [
-          {
-            loader: 'awesome-typescript-loader',
-            query: {
-              typescript: require('typescript')
-            }
-          },
-          {
-            loader: 'angular2-template-loader'
-          }
-        ],
+        loaders: ['awesome-typescript-loader','angular2-template-loader'],
         exclude: [/\.(spec|e2e)\.ts$/],
       },
 
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('css-loader', 'postcss-loader', 'sass-loader')
+        loader: ExtractTextPlugin.extract({
+          notExtractLoader: 'style-loader',
+          loader: 'css-loader?sourceMap!postcss-loader?sourceMap!resolve-url!sass-loader?sourceMap'
+        })
+      },
+      {
+        test   : /\.(ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
+        loader : 'file-loader?config=fontLoader'
+      },
+      {
+        test   : /\.(jpe?g|png|gif)(\?[a-z0-9=&.]+)?$/,
+        loader : 'file-loader?config=imgLoader'
       }
     ]
   },
@@ -59,7 +62,7 @@ module.exports = {
       to: 'assets'
     }]),
 
-    new ExtractTextPlugin('styles.css')
+    new ExtractTextPlugin('../css/app.md.css')
   ],
 
   postcss: [
@@ -77,9 +80,17 @@ module.exports = {
 
   sassLoader: {
     includePaths: [
-      'node_modules/ionic-angular',
-      'node_modules/ionicons/dist/scss'
+      'node_modules/ionic-angular/',
+      'node_modules/ionicons/dist/scss/'
     ]
+  },
+
+  fontLoader: {
+    name: '../fonts/[name]-[hash].[ext]'
+  },
+
+  imgLoader: {
+    name: '../images/[name]-[hash].[ext]'
   },
 
   node: {

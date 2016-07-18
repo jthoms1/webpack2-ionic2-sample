@@ -13,8 +13,6 @@ var path = require('path');
  */
 var DefinePlugin = require('webpack/lib/DefinePlugin');
 
-console.log('sup');
-
 /**
  * Webpack Constants
  */

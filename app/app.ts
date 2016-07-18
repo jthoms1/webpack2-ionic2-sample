@@ -2,11 +2,11 @@ import {Component} from '@angular/core';
 import {Platform, ionicBootstrap} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {TabsPage} from './pages/tabs/tabs';
-import './theme/app.md';
 
+import './theme/app.md.scss';
 
 @Component({
-  template: '<ion-nav [root]="rootPage"></ion-nav>'
+  template: '<ion-nav [root]="rootPage">Hello</ion-nav>'
 })
 export class MyApp {
 
