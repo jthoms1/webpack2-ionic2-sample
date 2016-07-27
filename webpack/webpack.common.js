@@ -27,10 +27,9 @@ module.exports = {
     loaders: [
       {
         test: /\.ts$/,
-        loaders: ['awesome-typescript-loader','angular2-template-loader'],
+        loaders: ['./loaders/glob?{files:["./[name].scss","./[name].md.scss","./[name].ios.scss"]}', 'awesome-typescript-loader'],
         exclude: [/\.(spec|e2e)\.ts$/],
       },
-
       {
         test: /\.scss$/,
         loader: ExtractTextPlugin.extract({
